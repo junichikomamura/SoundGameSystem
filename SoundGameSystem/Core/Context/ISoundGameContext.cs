@@ -9,5 +9,8 @@ namespace SoundGameSystem.Core
     /// </summary>
     public interface ISoundGameContext
     {
+        IScoreData ScoreData { get; }
+
+        INoteContext[] NoteContests { get; }
     }
 }

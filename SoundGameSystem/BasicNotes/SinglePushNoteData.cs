@@ -8,10 +8,9 @@ namespace SoundGameSystem.BasicNotes
     /// <summary>
     /// 単押しノーツデータ
     /// </summary>
-    public class SinglePushNoteData<TLaneTypeEnum> : NoteData<TLaneTypeEnum>
-        where TLaneTypeEnum : Enum
+    public class SinglePushNoteData : NoteData
     {
-        public SinglePushNoteData(int id, int beginTime, TLaneTypeEnum beginLaneType)
+        public SinglePushNoteData(int id, int beginTime, int beginLaneType)
             : base(id, beginTime, beginTime, beginLaneType, beginLaneType)
         {
 

@@ -7,8 +7,7 @@ namespace SoundGameSystem.Core
     /// <summary>
     /// ノーツデータの基底クラス
     /// </summary>
-    public abstract class NoteData<TLaneType> : INoteData<TLaneType>
-        where TLaneType : Enum        
+    public abstract class NoteData : INoteData        
     {
         public int Id { get; }
 
@@ -16,16 +15,16 @@ namespace SoundGameSystem.Core
 
         public int EndTime { get; }
 
-        public TLaneType BeginLaneType { get; }
+        public int BeginLaneType { get; }
 
-        public TLaneType EndLaneType { get; }
+        public int EndLaneType { get; }
 
         public NoteData(
             int id,
             int beginTime,
             int endTime,
-            TLaneType beginLaneType,
-            TLaneType endLaneType
+            int beginLaneType,
+            int endLaneType
             )
         {
             this.Id = id;

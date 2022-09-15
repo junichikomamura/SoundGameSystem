@@ -5,7 +5,7 @@ namespace SoundGameSystem.Core
     /// <summary>
     /// ノーツ1つ分のデータ
     /// </summary>
-    public interface INoteData<TLaneTypeEnum> where TLaneTypeEnum : Enum
+    public interface INoteData
     {
         /// <summary>
         /// ノーツ識別用のID
@@ -28,7 +28,7 @@ namespace SoundGameSystem.Core
         /// <summary>
         /// ノーツ開始時のレーンタイプ
         /// </summary>
-        TLaneTypeEnum BeginLaneType { get; }
+        int BeginLaneType { get; }
 
         /// <summary>
         /// ノーツ終了時のレーンタイプ
@@ -37,6 +37,6 @@ namespace SoundGameSystem.Core
         /// スマホのスライド等で終了時にレーンが変わっている場合に使用する
         /// 基本的には<see cref="BeginLaneType"/>と同じになる
         /// </remarks>
-        TLaneTypeEnum EndLaneType { get; }
+        int EndLaneType { get; }
     }
 }

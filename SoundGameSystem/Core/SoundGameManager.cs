@@ -9,11 +9,13 @@ namespace SoundGameSystem.Core
     /// </summary>
     public partial class SoundGameManager
     {
-        private readonly ISoundGameContext _context;
+        public ISoundGameContext Context { get; }
+        public SoundGameSequencer Sequencer { get; }
 
         public SoundGameManager(ISoundGameContext context)
         {
-            _context = context;
+            Context = context;
+            Sequencer = new SoundGameSequencer(context);
         }
     }
 }

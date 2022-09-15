@@ -8,15 +8,14 @@ namespace SoundGameSystem.BasicNotes
     /// <summary>
     /// ロングノーツデータ
     /// </summary>
-    public class LongNoteData<TLaneTypeEnum> : NoteData<TLaneTypeEnum> 
-        where TLaneTypeEnum : Enum
+    public class LongNoteData<TLaneTypeEnum> : NoteData
     {
         public LongNoteData(
             int id,
             int beginTime,
             int endTime,
-            TLaneTypeEnum beginLaneType,
-            TLaneTypeEnum endLaneType
+            int beginLaneType,
+            int endLaneType
             )
             : base(id, beginTime, endTime, beginLaneType, endLaneType)
         {

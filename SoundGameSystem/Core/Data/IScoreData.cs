@@ -7,14 +7,12 @@ namespace SoundGameSystem.Core
     /// <summary>
     /// 譜面データ
     /// </summary>
-    public interface IScoreData<TDifficultyEnum, TLaneTypeEnum> 
-        where TDifficultyEnum : Enum
-        where TLaneTypeEnum : Enum
+    public interface IScoreData
     {
         /// <summary>
         /// 譜面の難易度
         /// </summary>
-        TDifficultyEnum Difficulty { get; }
+        int Difficulty { get; }
 
         /// <summary>
         /// 曲名
@@ -24,6 +22,6 @@ namespace SoundGameSystem.Core
         /// <summary>
         /// 全てのノーツデータ
         /// </summary>
-        public INoteData<TLaneTypeEnum>[] NotesDatas { get; }
+        public INoteData[] NoteDatas { get; }
     }
 }

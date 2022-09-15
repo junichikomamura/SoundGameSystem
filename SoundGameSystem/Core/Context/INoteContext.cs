@@ -5,13 +5,10 @@ using System.Text;
 namespace SoundGameSystem.Core
 {
     /// <summary>
-    /// ステートマシン用
+    /// ノーツコンテキスト
     /// </summary>
-    public partial class SoundGameManager
+    public interface INoteContext
     {
-        private abstract class State
-        {
-
-        }
+        public INoteData NoteData { get; }
     }
 }
