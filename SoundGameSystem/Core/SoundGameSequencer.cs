@@ -8,29 +8,33 @@ namespace SoundGameSystem.Core
     {
         private readonly ISoundGameContext _context;
 
-        public int CurrentIndexFrom { get; private set; }
-        public int CurrentIndexTo { get; private set; }
         private int _now;
 
         private int DisplayTimeFrom => _now - 500;
-        private int DisplayTimeTo => _now = 1000;
+        private int DisplayTimeTo => _now + 1000;
 
         public SoundGameSequencer(ISoundGameContext context)
         {
             _context = context;
+            UpdateTime(0, forceUpdate: true);
         }
 
-        public void UpdateTime(int now)
+        public void Update()
         {
-            if (now == _now)
+            UpdateTime(_context.Timer.Now, forceUpdate: false);
+        }
+
+        private void UpdateTime(int now, bool forceUpdate)
+        {
+            if (now == _now && !forceUpdate)
                 return;
 
             // 実際のゲームプレイでは時間が戻ることはないはずだが、Editorなどではあり得るかもしれない
             // その場合は0に一旦リセット
             if (now < _now)
             {
-                CurrentIndexFrom = 0;
-                CurrentIndexTo = 0;
+                _context.CurrentNoteIndexFrom = 0;
+                _context.CurrentNoteIndexTo = 0;
             }
 
             _now = now;
@@ -45,13 +49,13 @@ namespace SoundGameSystem.Core
         private void UpdateCurrentIndexFrom()
         {
             // 最初のノーツの開始時間前の時間だったら0確定なのでここで終わり
-            if (DisplayTimeFrom < _context.NoteContests[0].NoteData.BeginTime)
+            if (_now < _context.NoteContests[0].NoteData.BeginTime)
             {
-                CurrentIndexFrom = 0;
+                _context.CurrentNoteIndexFrom = 0;
                 return;
             }
 
-            int indexFromTmp = CurrentIndexFrom;
+            int indexFromTmp = _context.CurrentNoteIndexFrom;
 
             // 表示ノーツFrom
             var notesFrom = _context.NoteContests[indexFromTmp];
@@ -63,7 +67,7 @@ namespace SoundGameSystem.Core
             {
                 if (IsWithinTime(notesFrom))
                 {
-                    CurrentIndexFrom = indexFromTmp;
+                    _context.CurrentNoteIndexFrom = indexFromTmp;
                     break;
                 }
                 else
@@ -80,7 +84,7 @@ namespace SoundGameSystem.Core
         /// </summary>
         private void UpdateCurrentIndexTo()
         {
-            int indexToTmp = CurrentIndexTo = CurrentIndexFrom; // Fromから初めて範囲内を探る
+            int indexToTmp = _context.CurrentNoteIndexTo = _context.CurrentNoteIndexFrom; // Fromから初めて範囲内を探る
 
             // 表示ノーツTo
             var notesTo = _context.NoteContests[indexToTmp];
@@ -90,7 +94,7 @@ namespace SoundGameSystem.Core
             {
                 if (IsWithinTime(notesTo))
                 {
-                    CurrentIndexTo = indexToTmp;
+                    _context.CurrentNoteIndexTo = indexToTmp;
                     if (!TryGetNotesContext(++indexToTmp, out notesTo))
                         break;
                     continue;

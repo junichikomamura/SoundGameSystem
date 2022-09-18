@@ -11,9 +11,16 @@ namespace SoundGameSystem.Core
 
         public INoteContext[] NoteContests { get; }
 
+        public int CurrentNoteIndexFrom { get; set; }
+
+        public int CurrentNoteIndexTo { get; set; }
+
+        public ISoundGameTimer Timer { get; }
+
         public SoundGameContext(
             IScoreData scoreData, 
-            INoteContextFactory noteContextFactory
+            INoteContextFactory noteContextFactory,
+            ISoundGameTimer timer
             )
         {
             this.ScoreData = scoreData;
@@ -21,6 +28,8 @@ namespace SoundGameSystem.Core
             this.NoteContests = scoreData.NoteDatas
                 .Select(x => noteContextFactory.Make(x))
                 .ToArray();
+
+            this.Timer = timer;
         }
     }
 }

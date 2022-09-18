@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SoundGameSystem.Core
+﻿namespace SoundGameSystem.Core
 {
     /// <summary>
     /// 1曲のゲームプレインコンテキスト
@@ -12,5 +8,11 @@ namespace SoundGameSystem.Core
         IScoreData ScoreData { get; }
 
         INoteContext[] NoteContests { get; }
+
+        public int CurrentNoteIndexFrom { get; set; }
+
+        public int CurrentNoteIndexTo { get; set; }
+
+        ISoundGameTimer Timer { get; }
     }
 }

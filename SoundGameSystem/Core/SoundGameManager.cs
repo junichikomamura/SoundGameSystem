@@ -17,5 +17,10 @@ namespace SoundGameSystem.Core
             Context = context;
             Sequencer = new SoundGameSequencer(context);
         }
+
+        public void Update()
+        {
+            this.Sequencer.Update();
+        }
     }
 }
